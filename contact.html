@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Contact Us - Kyla & Co</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Get in touch with Kyla & Co for luxury perfume inquiries."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .page-title {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #ff6f61;
+    }
+    .page-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+    }
+    .contact-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .contact-info {
+      flex: 1;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .contact-card {
+      margin-bottom: 20px;
+    }
+    .contact-item {
+      margin-bottom: 15px;
+    }
+    .contact-item h4 {
+      margin: 0;
+      font-weight: 600;
+      color: #ff6f61;
+    }
+    .contact-item p {
+      margin: 5px 0 0;
+      color: #555;
+    }
+    .contact-form {
+      flex: 2;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .form-group textarea {
+      resize: vertical;
+    }
+    .submit-btn {
+      background-color: #ff6f61;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #e65c50;
+    }
+
+    .footer {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #ff6f61;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+    }
+    .footer-title {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #ff6f61;
+    }
+    .social-links {
+      display: flex;
+      gap: 10px;
+    }
+    .social-links a {
+      color: #ff6f61;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .social-links a:hover {
+      text-decoration: underline;
+    }
+    .header {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+    .nav-brand .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .nav-link[aria-current="page"] {
+      color: #ff6f61;
+    }
+    .nav-actions {
+      display: flex;
+      gap: 15px;
+    }
+    .search-btn,
+    .cart-btn {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .search-btn svg,
+    .cart-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: #333;
+    }
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background-color: #ff6f61;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.8rem;
+    }
+
+    .header {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    .nav-brand .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+      font-family: Playfair Display, serif;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .nav-link[aria-current="page"] {
+      color: #ff6f61;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .search-btn,
+    .cart-btn {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .contact-page {
+      padding: 40px 20px;
+    }
+  </style>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <div class="nav-brand">
+          <a href="index.html" class="logo">Kyla & Co</a>
+        </div>
+        <div class="nav-links">
+          <a href="index.html#collections" class="nav-link">Collections</a>
+          <a href="new-arrivals.html" class="nav-link">New Arrivals</a>
+          <a href="index.html#about" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link" aria-current="page"
+            >Contact</a
+          >
+        </div>
+        <div class="nav-actions">
+          <button class="search-btn" aria-label="Search">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+          <a href="cart.html" class="cart-btn" aria-label="Shopping cart">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+              ></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="contact-page">
+      <div class="container">
+        <div class="page-header">
+          <h1 class="page-title">Contact Us</h1>
+          <p class="page-subtitle">
+            We'd love to help you find your perfect fragrance
+          </p>
+        </div>
+
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-card">
+              <h3>Get in Touch</h3>
+              <div class="contact-item">
+                <h4>Email</h4>
+                <p>kyla&co@gmail.com</p>
+              </div>
+              <div class="contact-item">
+                <h4>Phone</h4>
+                <p>063 3819 555</p>
+              </div>
+              <div class="contact-item">
+                <h4>Address</h4>
+                <p>
+                  Johannesburg<br />
+                  South Africa
+                </p>
+              </div>
+              <div class="contact-item">
+                <h4>Hours</h4>
+                <p>
+                  Monday - Friday: 10am - 6pm<br />Saturday - Sunday: 10am - 3pm
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <form
+              class="form"
+              action="https://formsubmit.co/sibscarmen@gmail.com"
+              method="POST"
+            >
+              <h3>Send us a Message</h3>
+
+              <!-- Hidden inputs for customization -->
+              <input
+                type="hidden"
+                name="_subject"
+                value="New message from Kyla Fragrance Co"
+              />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input
+                type="hidden"
+                name="_next"
+                value="https://yourdomain.com/thank-you.html"
+              />
+
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Select a topic</option>
+                  <option value="Product Inquiry">Product Inquiry</option>
+                  <option value="Order Status">Order Status</option>
+                  <option value="Returns & Exchanges">
+                    Returns & Exchanges
+                  </option>
+                  <option value="Fragrance Consultation">
+                    Fragrance Consultation
+                  </option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-title">Kyla & Co</h3>
+            <p>Luxury fragrances for the discerning individual</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Collections</a></li>
+              <li><a href="new-arrivals.html">New Arrivals</a></li>
+              <li><a href="index.html">Gift Sets</a></li>
+              <li><a href="index.html">About Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Customer Care</h4>
+            <ul>
+              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="#">Shipping Info</a></li>
+              <li><a href="#">Returns</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Connect</h4>
+            <div class="social-links">
+              <a href="#" aria-label="Instagram">Instagram</a>
+              <a href="#" aria-label="Facebook">Facebook</a>
+              <a href="#" aria-label="Twitter">Twitter</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Kyla & Co. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
