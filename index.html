@@ -230,6 +230,11 @@
         object-fit: cover;
         opacity: 0.3; /* softens the video */
       }
+      .add-to-cart.clicked {
+        background-color: #e65c50;
+        transform: scale(0.97);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      }
     </style>
   </head>
 
@@ -237,11 +242,13 @@
     <h1>KYLA & CO</h1>
     <h2>DISCOVER YOUR SIGNATURE SCENT!!!</h2>
     <li>
-      <a href="#">Home</a>
-      <a href="#">Shop</a>
+      <a href="https://kylaco.netlify.app/#">Home</a>
+      <a href="https://kylaco.netlify.app/#">Shop</a>
       <a href="contact.html">Contact</a>
 
-      <a href="#">Cart🛒</a>
+      <a href="cart.html" class="cart-link">
+        🛒 View Cart (<span id="cart-count">0</span>)
+      </a>
     </li>
     <section class="product-showcase">
       <img
@@ -267,44 +274,105 @@
           <img src="blossombliss.png" alt="Fragrance 1" />
           <p>Fragrance 1 - A blend of floral and woody notes.</p>
           <p class="price">R299.00</p>
-
-          <button class="add-to-cart">Add to Cart</button>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 1 - A blend of floral and woody notes."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
         <div class="fragrance">
           <img src="blossombliss.png" alt="Fragrance 2" />
           <p>Fragrance 2 - A fresh citrus scent with a hint of spice.</p>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 2 - A fresh citrus scent with a hint of spice."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
         <div class="fragrance">
           <img src="blossombliss.png" alt="Fragrance 3" />
           <p>Fragrance 3 - An exotic mix of jasmine and sandalwood.</p>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 3 - An exotic mix of jasmine and sandalwood."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
         <div class="fragrance">
           <img src="blossombliss.png" alt="Fragrance 4" />
           <p>Fragrance 4 - A rich, deep scent with notes of amber.</p>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 4 - A rich, deep scent with notes of amber."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
         <div class="fragrance">
           <img src="blossombliss.png" alt="Fragrance 5" />
           <p>Fragrance 5 - A sweet vanilla and musk combination.</p>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 5 - A sweet vanilla and musk combination."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
         <div class="fragrance">
           <img src="blossombliss.png" alt="Fragrance 6" />
           <p>
             Fragrance 6 - A refreshing aquatic scent with floral undertones.
           </p>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 6 - A refreshing aquatic scent with floral undertones."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
         <div class="fragrance">
           <img src="blossombliss.png" alt="Fragrance 7" />
           <p>
             Fragrance 7 - A spicy oriental fragrance with hints of cinnamon.
           </p>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 7 - A spicy oriental fragrance with hints of cinnamon."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
         <div class="fragrance">
           <img src="blossombliss.png" alt="Fragrance 8" />
           <p>Fragrance 8 - A bold scent with notes of leather and tobacco.</p>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 8 - A bold scent with notes of leather and tobacco."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
         <div class="fragrance">
           <img src="blossombliss.png" alt="Fragrance 8" />
           <p>Fragrance 8 - A bold scent with notes of leather and tobacco.</p>
+          <button
+            class="add-to-cart"
+            data-name="Fragrance 8 - A bold scent with notes of leather and tobacco."
+            data-price="299.00"
+          >
+            Add to Cart (<span class="item-count">0</span>)
+          </button>
         </div>
       </div>
     </section>
@@ -314,5 +382,48 @@
     <video autoplay muted loop id="bg-video">
       <source src="kylaco.mp4" type="video/mp4" />
     </video>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartDisplay = document.getElementById("cart-count");
+        const addButtons = document.querySelectorAll(".add-to-cart");
+
+        function updateCartCount() {
+          let total = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartDisplay.textContent = total;
+        }
+
+        function updateButtonCount(button, name) {
+          let item = cart.find((i) => i.name === name);
+          const countSpan = button.querySelector(".item-count");
+          countSpan.textContent = item ? item.quantity : 0;
+        }
+
+        addButtons.forEach((button) => {
+          const fragranceName = button.getAttribute("data-name");
+          updateButtonCount(button, fragranceName);
+
+          button.addEventListener("click", () => {
+            const price = parseFloat(button.getAttribute("data-price"));
+
+            let item = cart.find((i) => i.name === fragranceName);
+            if (item) {
+              item.quantity += 1;
+            } else {
+              cart.push({ name: fragranceName, price: price, quantity: 1 });
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+            updateButtonCount(button, fragranceName);
+
+            // Animate button
+            button.classList.add("clicked");
+            setTimeout(() => button.classList.remove("clicked"), 150);
+          });
+        });
+
+        updateCartCount();
+      });
+    </script>
   </body>
 </html>
