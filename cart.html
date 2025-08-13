@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Your Cart - Kyla & Co</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(-45deg, #fbeffb, #f0f8ff, #fff0f5, #e6e6fa);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        margin: 0;
+        padding: 20px;
+      }
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", serif;
+        text-align: center;
+        color: #333;
+        margin: 20px 0;
+      }
+      .cart-wrapper {
+        max-width: 700px;
+        margin: 30px auto;
+        background: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+        padding: 30px;
+      }
+      ul#cart-items {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+      }
+      ul#cart-items li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        margin-bottom: 10px;
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 1em;
+        color: #333;
+        border: 1px solid #eee;
+      }
+      .cart-totals {
+        background: #fff0f5;
+        border-radius: 8px;
+        padding: 18px;
+        margin-top: 20px;
+        font-size: 1.1em;
+        color: #333;
+      }
+      .cart-totals p,
+      .cart-totals h3 {
+        margin: 10px 0;
+      }
+      .cart-actions {
+        text-align: center;
+        margin-top: 30px;
+      }
+      .cart-actions a,
+      .cart-actions button {
+        display: inline-block;
+        padding: 10px 22px;
+        background-color: #ff6f61;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+        margin: 0 8px;
+        transition: background-color 0.3s ease;
+      }
+      .cart-actions a:hover,
+      .cart-actions button:hover {
+        background-color: #e65c50;
+      }
+      @media (max-width: 600px) {
+        .cart-wrapper {
+          padding: 10px;
+        }
+        ul#cart-items li {
+          font-size: 0.95em;
+          padding: 10px;
+        }
+        .cart-totals {
+          padding: 10px;
+        }
+      }
+      #bg-video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        transform: translate(-50%, -50%);
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Your Cart</h1>
+    <div class="cart-wrapper">
+      <ul id="cart-items"></ul>
+      <div class="cart-totals">
+        <p>Subtotal: R<span id="subtotal">0.00</span></p>
+        <p>Tax (15%): R<span id="tax">0.00</span></p>
+        <p>Shipping: R<span id="shipping">60.00</span></p>
+        <h3>Total: R<span id="total">0.00</span></h3>
+      </div>
+      <div class="cart-actions">
+        <a href="index.html">Continue Shopping</a>
+        <button id="checkout-btn">Checkout</button>
+      </div>
+    </div>
+    <video autoplay muted loop id="bg-video">
+      <source src="kylaco.mp4" type="video/mp4" />
+    </video>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartItems = document.getElementById("cart-items");
+        let subtotal = 0;
+
+        cart.forEach((item) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<span>${item.name} x${item.quantity}</span><span>R${(
+            item.price * item.quantity
+          ).toFixed(2)}</span>`;
+          cartItems.appendChild(li);
+          subtotal += item.price * item.quantity;
+        });
+
+        document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+        const tax = subtotal * 0.15;
+        document.getElementById("tax").textContent = tax.toFixed(2);
+        const shipping = cart.length > 0 ? 60.0 : 0.0;
+        document.getElementById("shipping").textContent = shipping.toFixed(2);
+        const total = subtotal + tax + shipping;
+        document.getElementById("total").textContent = total.toFixed(2);
+
+        document
+          .getElementById("checkout-btn")
+          .addEventListener("click", function () {
+            // Replace with your Stripe publishable key
+            var stripe = Stripe("pk_test_XXXXXXXXXXXXXXXXXXXXXXXX");
+
+            // Example: redirect to Stripe Checkout (replace with your real session ID from backend)
+            stripe
+              .redirectToCheckout({
+                sessionId: "YOUR_SESSION_ID_FROM_BACKEND",
+              })
+              .then(function (result) {
+                if (result.error) {
+                  alert(result.error.message);
+                }
+              });
+          });
+      });
+    </script>
+  </body>
+</html>
