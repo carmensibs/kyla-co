@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bulk Order - Kyla & Co</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(-45deg, #fbeffb, #f0f8ff, #fff0f5, #e6e6fa);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        margin: 0;
+        padding: 0;
+      }
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      h1,
+      h2 {
+        font-family: "Playfair Display", serif;
+        text-align: center;
+        color: #333;
+        margin-top: 40px;
+        margin-bottom: 10px;
+      }
+      .fragrance-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 24px;
+        max-width: 900px;
+        margin: 30px auto;
+      }
+      .fragrance {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+        padding: 18px;
+        text-align: center;
+      }
+      .fragrance img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        margin-bottom: 10px;
+      }
+      .price {
+        font-weight: bold;
+        color: #ff6f61;
+        margin-bottom: 8px;
+      }
+      .add-to-cart {
+        margin-top: 8px;
+        padding: 8px 0;
+        background-color: #ff6f61;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1em;
+        font-family: "Inter", sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 100%;
+      }
+      .add-to-cart:active {
+        background-color: #e65c50;
+      }
+      .cart-wrapper {
+        max-width: 700px;
+        margin: 30px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+        padding: 30px;
+      }
+      ul#cart-items {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+      }
+      ul#cart-items li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        margin-bottom: 10px;
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 1em;
+        color: #333;
+        border: 1px solid #eee;
+      }
+      .cart-totals {
+        background: #fff0f5;
+        border-radius: 8px;
+        padding: 18px;
+        margin-top: 20px;
+        font-size: 1.1em;
+        color: #333;
+      }
+      .cart-totals p,
+      .cart-totals h3 {
+        margin: 10px 0;
+      }
+      .cart-actions {
+        text-align: center;
+        margin-top: 30px;
+      }
+      .cart-actions button {
+        display: inline-block;
+        padding: 10px 22px;
+        background-color: #ff6f61;
+        color: white;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+        margin: 0 8px;
+        transition: background-color 0.3s ease;
+      }
+      .cart-actions button:hover {
+        background-color: #e65c50;
+      }
+      .address-form {
+        margin-top: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        padding: 18px;
+      }
+      .address-form label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+      .address-form input,
+      .address-form textarea {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+        font-family: "Inter", sans-serif;
+      }
+      .order-status {
+        margin-top: 24px;
+        text-align: center;
+        font-size: 1.1em;
+        color: #444;
+      }
+      .payment-section {
+        margin-top: 32px;
+        background: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        padding: 24px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .payment-section h2 {
+        color: #ff6f61;
+        margin-bottom: 12px;
+      }
+      .payment-section p {
+        margin: 8px 0;
+        line-height: 1.6;
+        color: #555;
+      }
+      .payment-section label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+      .payment-section input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+        font-family: "Inter", sans-serif;
+      }
+      #proof-form label {
+        font-weight: 500;
+        margin-top: 12px;
+        display: block;
+      }
+      #proof-form input[type="file"] {
+        margin-bottom: 12px;
+      }
+      #proof-form button {
+        background-color: #ff6f61;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 18px;
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+      #proof-form button:hover {
+        background-color: #e65c50;
+      }
+      #proof-status {
+        margin-top: 10px;
+        color: #333;
+      }
+      .proof-status {
+        margin-top: 10px;
+        font-size: 0.9em;
+        color: #333;
+      }
+      @media (max-width: 600px) {
+        .fragrance-grid {
+          grid-template-columns: 1fr;
+        }
+        .cart-wrapper {
+          padding: 10px;
+        }
+        ul#cart-items li {
+          font-size: 0.95em;
+          padding: 10px;
+        }
+        .cart-totals {
+          padding: 10px;
+        }
+        .address-form {
+          padding: 10px;
+        }
+        .payment-section {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bulk Order Perfumes</h1>
+    <h2>Minimum Bulk Order: 10 units</h2>
+    <div class="fragrance-grid">
+      <div class="fragrance">
+        <img src="blossombliss.png" alt="Blossom Bliss" />
+        <h3>Blossom Bliss</h3>
+        <p class="price">R299.00</p>
+        <button
+          class="add-to-cart"
+          data-name="Blossom Bliss"
+          data-price="299.00"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div class="fragrance">
+        <img src="amberallure.png" alt="Amber Allure" />
+        <h3>Amber Allure</h3>
+        <p class="price">R349.00</p>
+        <button
+          class="add-to-cart"
+          data-name="Amber Allure"
+          data-price="349.00"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div class="fragrance">
+        <img src="citruscrush.png" alt="Citrus Crush" />
+        <h3>Citrus Crush</h3>
+        <p class="price">R279.00</p>
+        <button
+          class="add-to-cart"
+          data-name="Citrus Crush"
+          data-price="279.00"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div class="fragrance">
+        <img src="velvetrose.png" alt="Velvet Rose" />
+        <h3>Velvet Rose</h3>
+        <p class="price">R329.00</p>
+        <button class="add-to-cart" data-name="Velvet Rose" data-price="329.00">
+          Add to Cart
+        </button>
+      </div>
+      <div class="fragrance">
+        <img src="oceanmist.png" alt="Ocean Mist" />
+        <h3>Ocean Mist</h3>
+        <p class="price">R259.00</p>
+        <button class="add-to-cart" data-name="Ocean Mist" data-price="259.00">
+          Add to Cart
+        </button>
+      </div>
+      <!-- Add more fragrances as needed -->
+    </div>
+    <div class="cart-wrapper">
+      <h2>Your Bulk Cart</h2>
+      <ul id="cart-items"></ul>
+      <div class="cart-totals">
+        <p>Subtotal: R<span id="subtotal">0.00</span></p>
+        <p>VAT (15%): R<span id="vat">0.00</span></p>
+        <p>Shipping: R<span id="shipping">120.00</span></p>
+        <h3>Total: R<span id="total">0.00</span></h3>
+      </div>
+      <form class="address-form" id="address-form">
+        <label for="shipping-address">Shipping Address:</label>
+        <textarea id="shipping-address" required rows="3"></textarea>
+        <label for="contact-number">Contact Number:</label>
+        <input type="text" id="contact-number" required />
+        <button type="submit">Place Order</button>
+      </form>
+      <div class="order-status" id="order-status"></div>
+      <div class="payment-section">
+        <h2>Pay Securely Online</h2>
+        <p>
+          Click the button below to pay for your bulk order using Yoco.<br />
+          You will be redirected to a secure payment page.
+        </p>
+        <a href="YOUR_YOCO_PAYMENT_LINK" target="_blank" class="yoco-pay-btn">
+          <button
+            style="
+              background-color: #ff6f61;
+              color: white;
+              border: none;
+              border-radius: 6px;
+              padding: 12px 24px;
+              font-size: 1.1em;
+              font-weight: bold;
+              cursor: pointer;
+            "
+          >
+            Pay with Yoco
+          </button>
+        </a>
+      </div>
+    </div>
+    <script>
+      // Bulk cart logic
+      let bulkCart = JSON.parse(localStorage.getItem("bulkCart")) || [];
+      const cartItems = document.getElementById("cart-items");
+      const subtotalEl = document.getElementById("subtotal");
+      const vatEl = document.getElementById("vat");
+      const shippingEl = document.getElementById("shipping");
+      const totalEl = document.getElementById("total");
+      const orderStatus = document.getElementById("order-status");
+
+      function updateCartDisplay() {
+        cartItems.innerHTML = "";
+        let subtotal = 0;
+        let totalQty = 0;
+        bulkCart.forEach((item) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<span>${item.name} x${item.quantity}</span>
+            <span>R${(item.price * item.quantity).toFixed(2)}</span>
+            <button onclick="removeItem('${item.name}')">Remove</button>`;
+          cartItems.appendChild(li);
+          subtotal += item.price * item.quantity;
+          totalQty += item.quantity;
+        });
+        subtotalEl.textContent = subtotal.toFixed(2);
+        const vat = subtotal * 0.15;
+        vatEl.textContent = vat.toFixed(2);
+        const shipping = bulkCart.length > 0 ? 120.0 : 0.0;
+        shippingEl.textContent = shipping.toFixed(2);
+        const total = subtotal + vat + shipping;
+        totalEl.textContent = total.toFixed(2);
+
+        // Enforce minimum bulk order
+        document.querySelector(".address-form button[type='submit']").disabled =
+          totalQty < 10;
+        if (totalQty < 10) {
+          orderStatus.textContent = "Minimum bulk order is 10 units.";
+        } else {
+          orderStatus.textContent = "";
+        }
+      }
+
+      function removeItem(name) {
+        bulkCart = bulkCart.filter((item) => item.name !== name);
+        localStorage.setItem("bulkCart", JSON.stringify(bulkCart));
+        updateCartDisplay();
+      }
+
+      window.removeItem = removeItem;
+
+      document.querySelectorAll(".add-to-cart").forEach((button) => {
+        button.addEventListener("click", () => {
+          const name = button.getAttribute("data-name");
+          const price = parseFloat(button.getAttribute("data-price"));
+          let item = bulkCart.find((i) => i.name === name);
+          if (item) {
+            item.quantity += 1;
+          } else {
+            bulkCart.push({ name, price, quantity: 1 });
+          }
+          localStorage.setItem("bulkCart", JSON.stringify(bulkCart));
+          updateCartDisplay();
+        });
+      });
+
+      document
+        .getElementById("address-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          let totalQty = bulkCart.reduce((sum, item) => sum + item.quantity, 0);
+          if (totalQty < 10) {
+            orderStatus.textContent = "Minimum bulk order is 10 units.";
+            return;
+          }
+          const address = document.getElementById("shipping-address").value;
+          const contact = document.getElementById("contact-number").value;
+          // Simulate order tracking
+          const orderId = "KYLA" + Math.floor(Math.random() * 1000000);
+          localStorage.setItem(
+            "bulkOrderStatus",
+            JSON.stringify({
+              id: orderId,
+              status: "Processing",
+              address,
+              contact,
+              cart: bulkCart,
+              date: new Date().toLocaleString(),
+            })
+          );
+          orderStatus.innerHTML = `Order placed!<br>Order ID: <b>${orderId}</b><br>Status: Processing<br>We will contact you at ${contact}.`;
+          bulkCart = [];
+          localStorage.removeItem("bulkCart");
+          updateCartDisplay();
+          this.reset();
+
+          // Send order email (newly added)
+          const resellerEmail = "reseller@example.com"; // Replace with actual reseller email
+          fetch("/send-order-email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              resellerEmail,
+              orderId,
+              address,
+              contact,
+              cart: bulkCart,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log("Order email sent successfully.");
+              } else {
+                console.error("Error sending order email:", data.error);
+              }
+            })
+            .catch((error) => console.error("Fetch error:", error));
+        });
+
+      // Track order if exists
+      window.addEventListener("DOMContentLoaded", () => {
+        updateCartDisplay();
+        const lastOrder = JSON.parse(localStorage.getItem("bulkOrderStatus"));
+        if (lastOrder) {
+          orderStatus.innerHTML = `Last Order ID: <b>${
+            lastOrder.id
+          }</b><br>Status: ${lastOrder.status}<br>Placed on: ${new Date(
+            lastOrder.date
+          ).toLocaleString()}`;
+        }
+      });
+
+      function showBankDetails() {
+        alert(
+          "Please pay to:\nBank: XYZ Bank\nAccount: 123456789\nBranch: 12345\nReference: Your Order ID\n\nSend proof of payment to sibscarmen@gmail.com"
+        );
+      }
+
+      document
+        .getElementById("proof-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const proofStatus = document.getElementById("proof-status");
+          const fileInput = document.getElementById("proof-file");
+          if (fileInput.files.length === 0) {
+            proofStatus.textContent = "Please select a file to upload.";
+            return;
+          }
+          // Simulate upload
+          proofStatus.textContent =
+            "Proof of payment uploaded. We will verify and notify you once payment is received.";
+          // For real upload, send file to backend using fetch or AJAX
+        });
+    </script>
+  </body>
+</html>
