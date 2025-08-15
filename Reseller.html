@@ -1,35 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Kyla & Co - Luxury Perfumes</title>
+    <title>Kyla & Co - Reseller Portal</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Discover exquisite luxury perfumes at Kyla & Co. Premium fragrances for the discerning individual."
-    />
     <link rel="stylesheet" href="styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
-    <script type="module" src="script.js"></script>
     <style>
       body {
-        background-color: lavender;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(-45deg, #fbeffb, #f0f8ff, #fff0f5, #e6e6fa);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        margin: 0;
+        padding: 0;
+      }
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      h1,
+      h2 {
+        font-family: "Playfair Display", serif;
+        text-align: center;
+        color: #333;
+        margin-top: 40px;
+        margin-bottom: 10px;
+      }
+      .auth-wrapper {
+        max-width: 400px;
+        margin: 30px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+        padding: 32px 28px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        margin-top: 18px;
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: #444;
+      }
+      input {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 1em;
+        margin-bottom: 8px;
+        font-family: "Inter", sans-serif;
+      }
+      button[type="submit"] {
+        margin-top: 18px;
+        padding: 12px 0;
+        background-color: #ff6f61;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1em;
+        font-family: "Inter", sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button[type="submit"]:hover {
+        background-color: #e65c50;
+      }
+      .toggle-link {
+        color: #ff6f61;
+        text-decoration: underline;
+        cursor: pointer;
+        margin-top: 10px;
+        text-align: center;
+      }
+      @media (max-width: 600px) {
+        .auth-wrapper {
+          padding: 12px 6px;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>BECOME A KYLA & CO FRAGRANCE RESELLER TODAY</h1>
-    <p>Join our growing network and bring these luxury scents to the world!</p>
-    <h2>WHY RESELL AT KYLA & CO?</h2>
-    <ul>
-      <li>Exclusive access to premium fragrances💎</li>
-      <li>Competitive pricing and attractive margins💰</li>
-      <li>Flexible order quantities to suit your business needs</li>
-      <li>Join a community of passionate fragrance enthusiasts</li>
-    </ul>
-    <a href="#">APPLY NOW</a>
+    <h1>KYLA & CO RESELLER PORTAL</h1>
+    <h2>Seller Login</h2>
+    <div class="auth-wrapper">
+      <form id="login-form">
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" required />
+        <label for="login-code">Unique Code:</label>
+        <input type="text" id="login-code" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+    <script>
+      // Put your approved sellers here
+      const approvedSellers = [
+        { email: "oasisconcy@gmail.com", code: "Kyla9949" },
+        { email: "seller2@example.com", code: "KC987654" },
+        // Add more sellers as needed
+      ];
+
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = document.getElementById("login-email").value.trim();
+          const code = document.getElementById("login-code").value.trim();
+          const found = approvedSellers.find(
+            (seller) =>
+              seller.email.toLowerCase() === email.toLowerCase() &&
+              seller.code === code
+          );
+          if (found) {
+            window.location.href = "bulk-order.html";
+          } else {
+            alert("Invalid email or code. Please check and try again.");
+          }
+        });
+    </script>
   </body>
 </html>
