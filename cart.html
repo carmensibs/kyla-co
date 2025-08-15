@@ -121,6 +121,68 @@
         transform: translate(-50%, -50%);
         overflow: hidden;
       }
+      .payment-section {
+        text-align: center;
+        margin-top: 40px;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+      }
+      .yoco-pay-btn {
+        display: inline-block;
+        background-color: #ff6f61;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 12px 24px;
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+      .yoco-pay-btn:hover {
+        background-color: #e65c50;
+      }
+      #signup-form {
+        max-width: 400px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+      }
+      #signup-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+      }
+      #signup-form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1em;
+        color: #333;
+      }
+      #signup-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #ff6f61;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      #signup-form button:hover {
+        background-color: #e65c50;
+      }
     </style>
   </head>
   <body>
@@ -138,10 +200,10 @@
         <button id="checkout-btn">Checkout</button>
       </div>
     </div>
+
     <video autoplay muted loop id="bg-video">
       <source src="kylaco.mp4" type="video/mp4" />
     </video>
-    <script src="https://js.stripe.com/v3/"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -168,21 +230,17 @@
         document
           .getElementById("checkout-btn")
           .addEventListener("click", function () {
-            // Replace with your Stripe publishable key
-            var stripe = Stripe("pk_test_XXXXXXXXXXXXXXXXXXXXXXXX");
-
-            // Example: redirect to Stripe Checkout (replace with your real session ID from backend)
-            stripe
-              .redirectToCheckout({
-                sessionId: "YOUR_SESSION_ID_FROM_BACKEND",
-              })
-              .then(function (result) {
-                if (result.error) {
-                  alert(result.error.message);
-                }
-              });
+            // Redirect to your Yoco payment link
+            window.open("YOUR_YOCO_PAYMENT_LINK", "_blank");
           });
       });
+      const approvedCodes = ["KYLA2025", "VIP123", "RES789"];
+      function generateCode() {
+        return "KYLA" + Math.floor(100000 + Math.random() * 900000);
+      }
+      // Usage:
+      const newCode = generateCode();
+      // Send newCode to the applicant via email
     </script>
   </body>
 </html>
