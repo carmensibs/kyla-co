@@ -546,6 +546,7 @@
         <div class="fragrance">
           <img src="bold.png" alt="Fragrance 2" />
           <p>Fragrance 2 - A fresh citrus scent with a hint of spice.</p>
+          <p class="price">R120.00</p>
           <button
             class="add-to-cart"
             data-name="Fragrance 2 - A fresh citrus scent with a hint of spice."
@@ -557,6 +558,8 @@
         <div class="fragrance">
           <img src="elodie claire.png" alt="Fragrance 3" />
           <p>Fragrance 3 - An exotic mix of jasmine and sandalwood.</p>
+          <p class="price">R120.00</p>
+
           <button
             class="add-to-cart"
             data-name="Fragrance 3 - An exotic mix of jasmine and sandalwood."
@@ -568,6 +571,7 @@
         <div class="fragrance">
           <img src="sama.png" alt="Fragrance 4" />
           <p>Fragrance 4 - A rich, deep scent with notes of amber.</p>
+          <p class="price">R120.00</p>
           <button
             class="add-to-cart"
             data-name="Fragrance 4 - A rich, deep scent with notes of amber."
@@ -645,7 +649,8 @@
     </video>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cart = JSON.parse(localStorage.getItem("shopCart")) || [];
+        localStorage.setItem("shopCart", JSON.stringify(cart));
         const cartDisplay = document.getElementById("cart-count");
         const addButtons = document.querySelectorAll(".add-to-cart");
 
@@ -665,7 +670,9 @@
           updateButtonCount(button, fragranceName);
 
           button.addEventListener("click", () => {
-            const price = parseFloat(button.getAttribute("data-price"));
+            const price = parseFloat(
+              button.getAttribute("data-price").replace("R", "")
+            );
 
             let item = cart.find((i) => i.name === fragranceName);
             if (item) {
@@ -673,7 +680,7 @@
             } else {
               cart.push({ name: fragranceName, price: price, quantity: 1 });
             }
-            localStorage.setItem("cart", JSON.stringify(cart));
+            localStorage.setItem("shopCart", JSON.stringify(cart));
             updateCartCount();
             updateButtonCount(button, fragranceName);
 
