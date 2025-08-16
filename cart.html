@@ -97,6 +97,23 @@
       .cart-actions button:hover {
         background-color: #e65c50;
       }
+      .clear-cart-btn {
+        display: inline-block;
+        padding: 10px 22px;
+        background-color: #888;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+        margin: 0 8px;
+        transition: background-color 0.3s ease;
+      }
+      .clear-cart-btn:hover {
+        background-color: #555;
+      }
       @media (max-width: 600px) {
         .cart-wrapper {
           padding: 10px;
@@ -198,6 +215,7 @@
       <div class="cart-actions">
         <a href="index.html">Continue Shopping</a>
         <button id="checkout-btn">Checkout</button>
+        <button class="clear-cart-btn" id="clear-cart-btn">Clear Cart</button>
       </div>
     </div>
 
@@ -205,13 +223,33 @@
       <source src="kylaco.mp4" type="video/mp4" />
     </video>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      function sanitizeCart(cart) {
+        return Array.isArray(cart)
+          ? cart
+              .filter(
+                (item) =>
+                  item &&
+                  typeof item.name === "string" &&
+                  typeof item.price === "number" &&
+                  typeof item.quantity === "number"
+              )
+              .map((item) => ({
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+              }))
+          : [];
+      }
+
+      function updateCartDisplay() {
+        let cart = JSON.parse(localStorage.getItem("shopCart")) || [];
+        cart = sanitizeCart(cart);
+        localStorage.setItem("shopCart", JSON.stringify(cart)); // Save sanitized cart
+
         const cartItems = document.getElementById("cart-items");
         let subtotal = 0;
 
-        // Clear previous items
-        if (cartItems) cartItems.innerHTML = "";
+        cartItems.innerHTML = "";
 
         cart.forEach((item) => {
           const li = document.createElement("li");
@@ -222,22 +260,41 @@
           subtotal += item.price * item.quantity;
         });
 
-        // Update totals
-        if (document.getElementById("subtotal"))
-          document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+        document.getElementById("subtotal").textContent = subtotal.toFixed(2);
 
         const vat = subtotal * 0.15;
-        if (document.getElementById("tax"))
-          document.getElementById("tax").textContent = vat.toFixed(2);
+        document.getElementById("tax").textContent = vat.toFixed(2);
 
         const shipping = cart.length > 0 ? 60.0 : 0.0;
-        if (document.getElementById("shipping"))
-          document.getElementById("shipping").textContent = shipping.toFixed(2);
+        document.getElementById("shipping").textContent = shipping.toFixed(2);
 
         const total = subtotal + vat + shipping;
-        if (document.getElementById("total"))
-          document.getElementById("total").textContent = total.toFixed(2);
+        document.getElementById("total").textContent = total.toFixed(2);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        updateCartDisplay();
+
+        document
+          .getElementById("clear-cart-btn")
+          .addEventListener("click", function () {
+            localStorage.removeItem("shopCart");
+            updateCartDisplay();
+          });
+
+        document
+          .getElementById("checkout-btn")
+          .addEventListener("click", function () {
+            // Redirect to your Yoco payment link
+            window.open("YOUR_YOCO_PAYMENT_LINK", "_blank");
+          });
       });
+
+      // Sample cart item for testing
+      const sampleCartItem = { name: "Perfume Name", price: 299, quantity: 1 };
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(sampleCartItem);
+      localStorage.setItem("cart", JSON.stringify(cart));
     </script>
   </body>
 </html>
