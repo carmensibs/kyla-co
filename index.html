@@ -15,11 +15,97 @@
     />
     <script type="module" src="script.js"></script>
     <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(-45deg, #fbeffb, #f0f8ff, #fff0f5, #e6e6fa);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .main-nav {
+        width: 100%;
+        background: #f0f0f0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 0;
+        margin: 0 0 20px 0;
+      }
+
+      .main-nav ul {
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .main-nav ul li {
+        margin: 0;
+        padding: 0;
+        flex: 1 1 120px;
+        text-align: center;
+      }
+      .main-nav ul li a {
+        display: block;
+        padding: 12px 0;
+        color: #333;
+        text-decoration: none;
+        font-size: 1em;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .main-nav ul li a:hover {
+        background-color: #e0e0e0;
+        color: #000;
+      }
+
+      @media (max-width: 768px) {
+        .main-nav ul {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .main-nav ul li {
+          width: 100%;
+          flex: none;
+        }
+        .main-nav ul li a {
+          font-size: 1.1em;
+          margin-bottom: 4px;
+          padding: 14px 0;
+        }
+        .fragrance-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+          padding: 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-nav ul li a {
+          font-size: 1em;
+          margin-bottom: 2px;
+          padding: 12px 0;
+        }
+        .fragrance-grid {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          padding: 4px;
+        }
+      }
       .fragrance-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4 items per row */
-        gap: 15px; /* spacing between items */
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
         padding: 15px;
+        width: 100%;
+        box-sizing: border-box;
       }
 
       .fragrance {
@@ -27,16 +113,18 @@
         border: 1px solid #ddd;
         padding: 10px;
         border-radius: 8px;
-        background-color: #f9f9f9;
+        background-color: #fff;
+        margin-bottom: 10px;
+        box-sizing: border-box;
       }
+
       .fragrance img {
         max-width: 100%;
         height: auto;
         border-radius: 4px;
+        margin-bottom: 8px;
       }
-      img {
-        width: 150px;
-      }
+
       .add-to-cart {
         margin-top: 10px;
         padding: 8px 16px;
@@ -47,6 +135,8 @@
         cursor: pointer;
         font-weight: bold;
         transition: background-color 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
       }
 
       .add-to-cart:hover {
@@ -142,25 +232,113 @@
       @media (max-width: 768px) {
         .fragrance-grid {
           grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          padding: 8px;
+        }
+        li {
+          flex-direction: column;
+          align-items: stretch;
+          font-size: 15px;
+          margin: 10px 0;
+          padding: 8px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        li a {
+          padding: 12px;
+          margin-bottom: 6px;
+          font-size: 1em;
+          display: block;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .product-showcase {
+          flex-direction: column;
+          gap: 12px;
+          padding: 10px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .perfume-image {
+          max-width: 100vw;
+          width: 100%;
+          height: auto;
+        }
+        .scent-description {
+          max-width: 100vw;
+          font-size: 1em;
+          padding: 0 8px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        h1 {
+          font-size: 2em;
+        }
+        h2 {
+          font-size: 1.3em;
+        }
+        h3 {
+          font-size: 1.1em;
+        }
+        button,
+        .add-to-cart {
+          font-size: 1em;
+          padding: 10px 12px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .more-wrapper {
+          padding: 10px 0;
         }
       }
 
       @media (max-width: 480px) {
         .fragrance-grid {
           grid-template-columns: 1fr;
+          gap: 8px;
+          padding: 4px;
         }
-
         .fragrance {
-          padding: 8px;
+          padding: 6px;
+          font-size: 0.95em;
+          width: 100%;
+          box-sizing: border-box;
         }
-
+        li {
+          font-size: 14px;
+          padding: 6px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .perfume-image {
+          max-width: 100vw;
+          width: 100%;
+          height: auto;
+        }
+        .scent-description {
+          font-size: 0.95em;
+          padding: 0 4px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        button,
         .add-to-cart {
-          font-size: 0.9em;
-          padding: 6px 10px;
+          font-size: 0.95em;
+          padding: 10px 8px;
+          width: 100%;
+          box-sizing: border-box;
         }
-
-        .price {
+        h1 {
+          font-size: 1.5em;
+        }
+        h2 {
+          font-size: 1.1em;
+        }
+        h3 {
           font-size: 1em;
+        }
+        .more-wrapper {
+          padding: 6px 0;
         }
       }
       .product-showcase {
@@ -235,23 +413,104 @@
         transform: scale(0.97);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
       }
+      .main-nav {
+        width: 100%;
+        margin-left: -20px;
+        margin-right: -20px;
+        background: #f0f0f0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+      }
+
+      .main-nav ul {
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .main-nav ul li {
+        margin: 0;
+        padding: 0;
+      }
+      .main-nav ul li a {
+        display: block;
+        padding: 12px 18px;
+        color: #333;
+        text-decoration: none;
+        font-size: 1em;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .main-nav ul li a:hover {
+        background-color: #e0e0e0;
+        color: #000;
+      }
+
+      @media (max-width: 768px) {
+        .main-nav,
+        .main-nav ul {
+          width: 100vw;
+          border-radius: 0;
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .main-nav ul li a {
+          font-size: 1.1em;
+          margin-bottom: 4px;
+        }
+        .fragrance-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+          padding: 6px;
+        }
+      }
+      @media (max-width: 480px) {
+        .main-nav,
+        .main-nav ul {
+          width: 100vw;
+          border-radius: 0;
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .main-nav ul li a {
+          font-size: 1em;
+          margin-bottom: 2px;
+        }
+        .fragrance-grid {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          padding: 4px;
+        }
+      }
     </style>
   </head>
 
   <body>
     <h1>KYLA & CO</h1>
     <h2>DISCOVER YOUR SIGNATURE SCENT!!!</h2>
-    <li>
-      <a href="https://kylaco.netlify.app/#">Home</a>
-      <a href="apply-now.html">Become a Reseller</a>
-      <a href="contact.html">Contact</a>
-      <a href="cart.html" class="cart-link">
-        🛒 View Cart (<span id="cart-count">0</span>)
-      </a>
-      <a href="reseller.html" style="font-weight: bold; color: #ff6f61"
-        >Reseller Login</a
-      >
-    </li>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="https://kylaco.netlify.app/#">Home</a></li>
+        <li><a href="apply-now.html">Become a Reseller</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li>
+          <a href="cart.html" class="cart-link"
+            >🛒 View Cart (<span id="cart-count">0</span>)</a
+          >
+        </li>
+        <li>
+          <a href="reseller.html" style="font-weight: bold; color: #ff6f61"
+            >Reseller Login</a
+          >
+        </li>
+      </ul>
+    </nav>
     <section class="product-showcase">
       <img
         src="blossombliss.png"
