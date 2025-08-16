@@ -210,6 +210,9 @@
         const cartItems = document.getElementById("cart-items");
         let subtotal = 0;
 
+        // Clear previous items
+        if (cartItems) cartItems.innerHTML = "";
+
         cart.forEach((item) => {
           const li = document.createElement("li");
           li.innerHTML = `<span>${item.name} x${item.quantity}</span><span>R${(
@@ -219,28 +222,22 @@
           subtotal += item.price * item.quantity;
         });
 
-        document.getElementById("subtotal").textContent = subtotal.toFixed(2);
-        const tax = subtotal * 0.15;
-        document.getElementById("tax").textContent = tax.toFixed(2);
-        const shipping = cart.length > 0 ? 60.0 : 0.0;
-        document.getElementById("shipping").textContent = shipping.toFixed(2);
-        const total = subtotal + tax + shipping;
-        document.getElementById("total").textContent = total.toFixed(2);
+        // Update totals
+        if (document.getElementById("subtotal"))
+          document.getElementById("subtotal").textContent = subtotal.toFixed(2);
 
-        document
-          .getElementById("checkout-btn")
-          .addEventListener("click", function () {
-            // Redirect to your Yoco payment link
-            window.open("YOUR_YOCO_PAYMENT_LINK", "_blank");
-          });
+        const vat = subtotal * 0.15;
+        if (document.getElementById("tax"))
+          document.getElementById("tax").textContent = vat.toFixed(2);
+
+        const shipping = cart.length > 0 ? 60.0 : 0.0;
+        if (document.getElementById("shipping"))
+          document.getElementById("shipping").textContent = shipping.toFixed(2);
+
+        const total = subtotal + vat + shipping;
+        if (document.getElementById("total"))
+          document.getElementById("total").textContent = total.toFixed(2);
       });
-      const approvedCodes = ["KYLA2025", "VIP123", "RES789"];
-      function generateCode() {
-        return "KYLA" + Math.floor(100000 + Math.random() * 900000);
-      }
-      // Usage:
-      const newCode = generateCode();
-      // Send newCode to the applicant via email
     </script>
   </body>
 </html>
